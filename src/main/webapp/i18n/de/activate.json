@@ -1,0 +1,9 @@
+{
+    "activate": {
+        "title": "Aktivierung",
+        "messages": {
+            "success": "<strong>Ihr Benutzer wurde aktiviert.</strong> Bitte <a href=\"#/login\">anmelden</a>.",
+            "error": "<strong>Ihr Benutzer konnte nicht aktiviert werden.</strong> Bitte verwenden Sie die Registrierungs Form um sich anzumelden."
+        }
+    }
+}

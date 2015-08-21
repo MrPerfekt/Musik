@@ -1,0 +1,30 @@
+{
+    "reset": {
+        "request": {
+            "title": "Passwort Zurücksetzen",
+            "form": {
+                "button": "Passwort Zurücksetzen"
+            },
+            "messages": {
+                "info": "Geben Sie Ihre E-Mail Adresse ein, mit der Sie sich angemeldet haben.",
+                "success": "Überpüfen Sie Ihre E-Mail Adresse, wie Sie ihr Passwort zurücksetzen.",
+                "notfound": "<strong>E-Mail Adresse ist noch nicht registriert!</strong> Überprüfen Sie diese, und versuchen Sie es erneut"
+
+            }
+
+        },
+        "finish" : {
+            "title": "Passwort Zurücksetzen",
+            "form": {
+                "button": "Überprüfe neues Passwort"
+            },
+            "messages": {
+                "info": "Wählen Sie ein neues Passwort",
+                "success": "<strong>Ihr Passwort wurde zurückgesetzt.</strong> Bitte <a href=\"#/login\">anmelden</a>.",
+                "keymissing": "The reset key is missing.",
+                "error": "Ihr Passwort konnte nicht zurückgesetzt werden. Ein Passwort änderungs Antrag ist nur für 24 Stunden gültig."
+            }
+        }
+    }
+
+}

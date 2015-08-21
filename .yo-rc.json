@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "musik",
+    "packageName": "at.musik",
+    "packageFolder": "at/musik",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "enableTranslation": true,
+    "rememberMeKey": "f44defac572ede7f27b56f3a9e98105c179700ad"
+  }
+}

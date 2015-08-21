@@ -1,0 +1,111 @@
+{
+    "global": {
+        "title": "musik",
+        "browsehappy": "Sie verwenden einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=en\">updaten Sie Ihren Browser</a> um Ihr Surferlebnis zu verbessern.",
+        "menu": {
+            "home": "Home",
+            "entities": {
+                "main": "Entities",
+                "additionalEntity": "JHipster will add additional entities here (do not translate!)"
+            },
+            "account": {
+                "main": "Account",
+                "settings": "Einstellungen",
+                "password": "Passwort",
+                "sessions": "Sessions",
+                "login": "Authentifizierung",
+                "logout": "Ausloggen",
+                "register": "Anmelden"
+            },
+            "admin": {
+                "main": "Administration",
+                "tracker": "User tracker",
+                "metrics": "Metrics",
+                "health": "Health",
+                "configuration": "Configuration",
+                "logs": "Logs",
+                "audits": "Audits",
+                "apidocs": "API",
+                "database": "Database"
+            },
+            "language": "Sprache"
+        },
+        "form": {
+            "username": "Login",
+            "username.placeholder": "Ihr Login",
+            "newpassword": "Neues Passwort",
+            "newpassword.placeholder": "Neues Passwort",
+            "confirmpassword": "Neues Passwort, Bestätigung",
+            "confirmpassword.placeholder": "Neues Passwort Bestätigung",
+            "email": "E-mail",
+            "email.placeholder": "Ihre e-mail"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "Hier können Sie sich anmelden: <a href=\"#/login\">authenticate</a>.",
+                "register": "Sie haben noch keinen Account? <a href=\"#/register\">Jetzt Anmelden</a>"
+            },
+            "error": {
+                "dontmatch" : "Das Passwort und die Bestätigung stimmen nicht überein!"
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "Ihr passwort wird benötigt.",
+                    "minlength": "Ihr passwort muss mindestens 5 Zeichen lang sein.",
+                    "maxlength": "Ihr passwort darf nicht länger als 50 Zeichen sein.",
+                    "strength": "Passwort Qualität:"
+                },
+                "confirmpassword": {
+                    "required": "Ihre Passwortbestätigung wird benötigt.",
+                    "minlength": "Ihre Passwortbestätigung muss mindestens 5 Zeichen lang sein",
+                    "maxlength": "Ihre Passwortbestätigung darf nicht länger als 50 Zeichen sein."
+                },
+                "email": {
+                    "required": "Ihre E-Mail wird benötigt.",
+                    "invalid": "Ihre E-Mail ist ungültig.",
+                    "minlength": "Ihre E-Mail muss mindestens 5 Zeichen lang sein.",
+                    "maxlength": "Ihre E-Mail darf mindesten 50 Zeichen lang sein."
+                }
+            }
+        },
+        "field": {
+            "id" : "ID"
+        }
+    },
+    "entity": {
+        "action": {
+            "addblob": "Blob hinzufügen",
+            "addimage": "Bild hinzufügen",
+            "back": "Zurück",
+            "cancel": "Abbrechen",
+            "delete": "Löschen",
+            "edit": "Bearbeiten",
+            "save": "Speichern",
+            "view": "Ansehen"
+        },
+        "detail": {
+            "field": "Feld",
+            "value": "Wert"
+        },
+        "delete": {
+            "title": "Bestätigen Sie das Löschen"
+        },
+        "validation": {
+            "required": "Das Feld wird benötigt.",
+            "minlength": "Dieses Feld muss mindestens {{min}} Zeichen lang sein.",
+            "maxlength": "Dieses Feld darf maximal {{max}} Zeichen lang sein.",
+            "min": "Dieses Feld sollte minimal {{min}} sein.",
+            "max": "Dieses Feld sollte maximal {{max}} sein.",
+            "minbytes": "Dieses Feld sollte minimal {{min}} Bytes sein.",
+            "maxbytes": "Dieses Feld sollte maximal {{max}} Bytes sein.",
+            "pattern": "Dieses Feld sollte diesem Pattern entsprechen {{pattern}}.",
+            "number": "Dieses Feld sollte eine Zahl sein.",
+            "datetimelocal": "Dieses Feld sollte ein Datum und eine Uhrzeit sein."
+        }
+    },
+    "error" : {
+        "serverNotReachable" : "Server nicht erreichbar",
+        "NotNull" : "Feld {{fieldName}} darf nicht leer sein!"
+    },
+    "footer": "Das ist ihre Fußzeile"
+}

@@ -1,0 +1,19 @@
+{
+    "login": {
+        "title": "Login",
+        "form": {
+            "password": "Passwort",
+            "password.placeholder": "Ihr Passwort",
+            "rememberme": "Automatischer Login",
+            "button": "Login"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Login fehlgeschlagen!</strong> Bitte überprüfen Sie ihre Anmeldedaten und probieren Sie es erneut."
+            }
+        },
+        "password" : {
+            "forgot": "Haben Sie Ihr Passwort vergessen?"
+        }
+    }
+}
