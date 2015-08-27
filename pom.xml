@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -49,9 +50,30 @@
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
         <springfox.version>2.0.3</springfox.version>
         <usertype-core.version>4.0.0.GA</usertype-core.version>
+        <reactor.version>1.1.0.M3</reactor.version>
     </properties>
 
     <dependencies>
+        <!--Own-->
+        <!-- Reactor -->
+        <dependency>
+            <groupId>org.projectreactor</groupId>
+            <artifactId>reactor-net</artifactId>
+            <version>${reactor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectreactor.spring</groupId>
+            <artifactId>reactor-spring-context</artifactId>
+            <version>${reactor.version}</version>
+        </dependency>
+        <!-- GraphicsMagick -->
+        <dependency>
+            <groupId>com.sharneng</groupId>
+            <artifactId>gm4java</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <!--Generated-->
+
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
@@ -230,7 +252,7 @@
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
-	        <artifactId>assertj-core</artifactId>
+            <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
@@ -366,6 +388,14 @@
             <version>${metrics-spark-reporter.version}</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/libs-milestone</url>
+        </repository>
+    </repositories>
+
     <build>
         <resources>
             <resource>
@@ -404,7 +434,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -417,7 +447,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -431,7 +461,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -500,11 +530,14 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <message>You are running an older version of Maven. JHipster requires at least Maven 3.0</message>
+                            <message>You are running an older version of Maven. JHipster requires at least Maven 3.0
+                            </message>
                             <version>[3.0.0,)</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
-                            <message>You are running an older version of Java. JHipster requires at least JDK ${java.version}</message>
+                            <message>You are running an older version of Java. JHipster requires at least JDK
+                                ${java.version}
+                            </message>
                             <version>[${java.version}.0,)</version>
                         </requireJavaVersion>
                     </rules>
@@ -570,13 +603,16 @@
                 <version>${liquibase.version}</version>
                 <configuration>
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
-                    <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
+                    <diffChangeLogFile>
+                        src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                    </diffChangeLogFile>
                     <driver>com.mysql.jdbc.Driver</driver>
                     <url>jdbc:mysql://localhost:3306/musik</url>
                     <defaultSchemaName>musik</defaultSchemaName>
                     <username>root</username>
                     <password></password>
-                    <referenceUrl>hibernate:spring:at.musik.domain?dialect=org.hibernate.dialect.MySQLInnoDBDialect</referenceUrl>
+                    <referenceUrl>hibernate:spring:at.musik.domain?dialect=org.hibernate.dialect.MySQLInnoDBDialect
+                    </referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
                 </configuration>
