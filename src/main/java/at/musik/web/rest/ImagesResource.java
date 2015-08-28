@@ -43,7 +43,12 @@ package at.musik.web.rest;
 //    }
 //}
 
+import at.musik.domain.ImageMetadata;
+import at.musik.domain.User;
+import at.musik.repository.ImageRepository;
+import at.musik.repository.UserRepository;
 import at.musik.service.ImageService;
+import at.musik.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +67,12 @@ public class ImagesResource {
 
     @Inject
     private ImageService imageService;
+
+    @Inject
+    private ImageRepository imageRepository;
+
+    @Inject
+    private UserService userService;
 
     /**
      * Accept an image upload via POST and notify a Reactor that the image needs to be thumbnailed. Asynchronously respond
@@ -83,7 +94,9 @@ public class ImagesResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public String uploadImage(String location, MultipartFile file) {
-        return imageService.saveImage(file, location);
+    public void uploadImage(String location, String imageName, MultipartFile file) {
+        User user = userService.getUserWithAuthorities();
+        String path = imageService.saveImage(file, location);
+        imageRepository.save(new ImageMetadata(user,path,imageName));
     }
 }
