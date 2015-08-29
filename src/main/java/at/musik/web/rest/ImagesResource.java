@@ -45,7 +45,8 @@ package at.musik.web.rest;
 
 import at.musik.domain.ImageMetadata;
 import at.musik.domain.User;
-import at.musik.repository.ImageRepository;
+//import at.musik.repository.ImageRepository;
+import at.musik.repository.ImageMetadataRepository;
 import at.musik.repository.UserRepository;
 import at.musik.service.ImageService;
 import at.musik.service.UserService;
@@ -69,7 +70,7 @@ public class ImagesResource {
     private ImageService imageService;
 
     @Inject
-    private ImageRepository imageRepository;
+    private ImageMetadataRepository imageMetadataRepository;
 
     @Inject
     private UserService userService;
@@ -96,7 +97,7 @@ public class ImagesResource {
     @Timed
     public void uploadImage(String location, String imageName, MultipartFile file) {
         User user = userService.getUserWithAuthorities();
-        String path = imageService.saveImage(file, location);
-        imageRepository.save(new ImageMetadata(user,path,imageName));
+        String filename = imageService.saveImage(file, location);
+        imageMetadataRepository.save(new ImageMetadata("",filename,location,user));
     }
 }

@@ -60,6 +60,7 @@ public class ImageService implements ResourceLoaderAware {
         String baseName = FilenameUtils.getBaseName(filenameWithExtension);
         String extension = FilenameUtils.getExtension(filenameWithExtension);
         int fileNumber;
+        String filename;
 
         String originalDirectory = ImageSize.original.getImageLocation() +location+"/";
         if (!inputFile.isEmpty()) {
@@ -71,14 +72,13 @@ public class ImageService implements ResourceLoaderAware {
                 File originalFile;
                 fileNumber = -1;
                 File[] files;
-                String filename;
                 do {
                     fileNumber++;
                     filename = baseName+"-"+fileNumber;
                     final String currentFilename = filename;
                     files = originalDirectoryFile.listFiles((File dir, String name) -> name.startsWith(currentFilename));
                 } while (files.length > 0);
-                originalFilePath = originalDirectory + baseName + "-" + fileNumber + "." + extension;
+                originalFilePath = originalDirectory + filename + "." + extension;
                 originalFile = resourceLoader.getResource(originalFilePath).getFile();
                 inputFile.transferTo(originalFile);
                 log.info("Image original saved as {}", originalFilePath);
@@ -95,7 +95,7 @@ public class ImageService implements ResourceLoaderAware {
         } else {
             return "";
         }
-        return location + "/" + baseName + "-" + fileNumber;
+        return filename;
     }
 
     private void saveImage(File originalFile, ImageSize imageSize, String location, String fileName) throws IOException {

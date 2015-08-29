@@ -81,7 +81,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .csrf()
             .ignoringAntMatchers("/websocket/**")
-//            .ignoringAntMatchers("/api/images/upload")
             .and()
             .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
             .exceptionHandling()
@@ -111,7 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/images/upload").permitAll()
+            .antMatchers("/api/images/upload").hasAnyAuthority(AuthoritiesConstants.AUTHOR)
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()

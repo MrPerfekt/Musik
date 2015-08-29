@@ -1,0 +1,24 @@
+{
+    "musikApp": {
+        "imageMetadata" : {
+            "home": {
+                "title": "ImageMetadatas",
+                "createLabel": "Create a new ImageMetadata",
+                "createOrEditLabel": "Create or edit a ImageMetadata"
+            },
+            "created": "A new ImageMetadata is created with identifier {{ param }}",
+            "updated": "A ImageMetadata is updated with identifier {{ param }}",
+            "deleted": "A ImageMetadata is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete ImageMetadata {{ id }}?"
+            },
+            "detail": {
+                "title": "ImageMetadata"
+            },
+            "webName": "WebName",
+            "fileName": "FileName",
+            "filePath": "FilePath",
+            "user": "user"
+        }
+    }
+}
