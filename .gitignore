@@ -1,7 +1,8 @@
 ######################
 # Project Specific
 ######################
-/src/main/webapp/dist
+/src/main/webapp/bower_components
+/src/main/webapp/resources/images
 
 ######################
 # Node

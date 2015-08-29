@@ -16,10 +16,10 @@ public interface ImageMetadataRepository extends JpaRepository<ImageMetadata,Lon
     @Query("select imageMetadata from ImageMetadata imageMetadata where imageMetadata.user.login = ?#{principal.username}")
     List<ImageMetadata> findAllForCurrentUser();
 
-    List<ImageMetadata> findOneByWebName(String webName);
+    Optional<ImageMetadata> findOneByWebName(String webName);
 
-    List<ImageMetadata> findOneByFileName(String fileName);
+    List<ImageMetadata> findAllByFileName(String fileName);
 
-    List<ImageMetadata> findOneByFilePath(String filePath);
+    List<ImageMetadata> findAllByFilePath(String filePath);
 
 }

@@ -1,7 +1,7 @@
 package at.musik.service;
 
-import io.netty.buffer.ByteBuf;
 import liquibase.util.file.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ResourceLoaderAware;
@@ -14,14 +14,24 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 @Service
 public class ImageService implements ResourceLoaderAware {
+    public static final String imageFormat = "jpg";
     public static final String imageLocation = "resources/images/";
+    private ResourceLoader resourceLoader;
+
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    public Resource getResource(String location) {
+        return resourceLoader.getResource(location);
+    }
+
     public enum ImageSize {
         original(-1),
         converted(Integer.MAX_VALUE),
@@ -41,28 +51,18 @@ public class ImageService implements ResourceLoaderAware {
             this.maxLongSize = maxLongSize;
         }
     }
-    public static final String imageFormat = "jpg";
 
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
+    private final Logger log = LoggerFactory.getLogger(ImageService.class);
 
-    private ResourceLoader resourceLoader;
-
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
-    }
-
-    public Resource getResource(String location){
-        return resourceLoader.getResource(location);
-    }
 
     public String saveImage(MultipartFile inputFile, String location) {
         String filenameWithExtension = inputFile.getOriginalFilename();
         String baseName = FilenameUtils.getBaseName(filenameWithExtension);
-        String extension = FilenameUtils.getExtension(filenameWithExtension);
+        String fileType = FilenameUtils.getExtension(filenameWithExtension);
         int fileNumber;
         String filename;
 
-        String originalDirectory = ImageSize.original.getImageLocation() +location+"/";
+        String originalDirectory = getFolderPath(location, ImageSize.original);
         if (!inputFile.isEmpty()) {
             try {
                 // Store image
@@ -74,11 +74,11 @@ public class ImageService implements ResourceLoaderAware {
                 File[] files;
                 do {
                     fileNumber++;
-                    filename = baseName+"-"+fileNumber;
+                    filename = baseName + "-" + fileNumber;
                     final String currentFilename = filename;
                     files = originalDirectoryFile.listFiles((File dir, String name) -> name.startsWith(currentFilename));
                 } while (files.length > 0);
-                originalFilePath = originalDirectory + filename + "." + extension;
+                originalFilePath = getFilePath(location, ImageSize.original, filename, fileType);
                 originalFile = resourceLoader.getResource(originalFilePath).getFile();
                 inputFile.transferTo(originalFile);
                 log.info("Image original saved as {}", originalFilePath);
@@ -108,34 +108,37 @@ public class ImageService implements ResourceLoaderAware {
         if (width >= heigh) { // horizontal or square image
             newWidth = Math.min(imageSize.getMaxLongSize(), width);
             scale = newWidth / (double) width;
-            newHeigh = (int)(scale * heigh);
+            newHeigh = (int) (scale * heigh);
         } else { // vertical image
             newHeigh = Math.min(imageSize.getMaxLongSize(), heigh);
             scale = newHeigh / (double) heigh;
-            newWidth = (int)(scale * width);
+            newWidth = (int) (scale * width);
         }
 
-        String imagePath = imageSize.getImageLocation() + location + "/";
-        String imagePathName = imagePath + fileName + "." + imageFormat;
+        String folderPath = getFolderPath(location, imageSize);
+        String imagePathName = getFilePath(location, imageSize, fileName);
         BufferedImage img = new BufferedImage(newWidth, newHeigh, BufferedImage.TYPE_INT_RGB);
         img.createGraphics().drawImage(ImageIO.read(originalFile).getScaledInstance(newWidth, newHeigh, Image.SCALE_SMOOTH), 0, 0, null);
-        resourceLoader.getResource(imagePath).getFile().mkdirs();
+        resourceLoader.getResource(folderPath).getFile().mkdirs();
         ImageIO.write(img, imageFormat, resourceLoader.getResource(imagePathName).getFile());
 
         log.info("Image {} saved as: {}", imageSize.name(), imagePathName);
     }
 
-    private static Path readUpload(ByteBuf content) throws IOException {
-        byte[] bytes = new byte[content.readableBytes()];
-        content.readBytes(bytes);
-        content.release();
+    public byte[] loadImage(String name, String location, ImageSize imageSize) throws IOException {
+        return Files.readAllBytes(resourceLoader.getResource(getFilePath(location, imageSize, name)).getFile().toPath());
+    }
 
-        // write to a temp file
-        Path imgIn = Files.createTempFile("upload", ".jpg");
-        Files.write(imgIn, bytes);
 
-        imgIn.toFile().deleteOnExit();
+    public static String getFilePath(String location, ImageSize imageSize, String name) {
+        return getFilePath(location, imageSize, name, imageFormat);
+    }
 
-        return imgIn;
+    public static String getFilePath(String location, ImageSize imageSize, String name, String fileType) {
+        return getFolderPath(location, imageSize) + name + "." + fileType;
+    }
+
+    public static String getFolderPath(String location, ImageSize imageSize) {
+        return imageSize.getImageLocation() + location + "/";
     }
 }

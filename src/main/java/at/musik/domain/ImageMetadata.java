@@ -21,7 +21,7 @@ public class ImageMetadata implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "web_name")
+    @Column(name = "web_name", unique = true)
     private String webName;
 
     @NotNull
