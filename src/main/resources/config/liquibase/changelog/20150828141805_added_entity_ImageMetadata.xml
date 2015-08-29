@@ -19,19 +19,21 @@
     -->
     <changeSet id="20150828141805" author="jhipster">
         <createTable tableName="IMAGEMETADATA">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="web_name" type="varchar(255)"/>
+            <column name="web_name" type="varchar(255)">
+                <constraints unique="true"/>
+            </column>
             <column name="file_name" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="file_path" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="user_id" type="bigint"/>
         </createTable>
-        
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="IMAGEMETADATA"
                                  constraintName="fk_imagemetadata_user_id"

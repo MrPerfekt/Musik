@@ -7,6 +7,18 @@ angular.module('musikApp')
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
 
+        //$scope.imagePath = "/resources/images/original/testLocation/pairprogramming-0.jpg";
+        $http.get('api/images/getPath',  {
+            params: {size: "original", webName: "testWebName"},
+            withCredentials: true,
+            transformRequest: angular.identity
+        }).success(function (response) {
+            $scope.imagePath = response;
+            return response;
+        }).error(function (response) {
+            console.log(response);
+            return response;
+        });
 
         $scope.uploadFile = function(files) {
             var fd = new FormData();

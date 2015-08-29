@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -36,25 +37,40 @@ public class ImagesResource {
     @RequestMapping(value = "/images/upload",
         method = RequestMethod.POST)
     @Timed
-    public void uploadImage(String webName, String location, String imageName, MultipartFile file) {
+    public void uploadImage(String webName, String location, MultipartFile file) {
+        Optional<ImageMetadata> optionalMetadata = imageMetadataRepository.findOneByWebName(webName);
+        if (optionalMetadata.isPresent()) {
+            ImageMetadata imageMetadata = optionalMetadata.get();
+            imageMetadata.setWebName("");
+            imageMetadataRepository.save(imageMetadata);
+        }
         User user = userService.getUserWithAuthorities();
-        String filename = imageService.saveImage(file, location);
+        String filename = imageService.saveImage(file, webName, location);
         imageMetadataRepository.save(new ImageMetadata(webName, filename, location, user));
     }
 
     @Timed
     @ResponseBody
     @RequestMapping(value = "/images/download", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] downloadImage(String size, String webName) throws IOException {
+    public byte[] downloadImage(String size, String webName) {
         ImageMetadata imageMetadata = imageMetadataRepository.findOneByWebName(webName).get();
-        return imageService.loadImage(imageMetadata.getFileName(), imageMetadata.getFilePath(), ImageService.ImageSize.valueOf(size));
+        try {
+            return imageService.loadImage(imageMetadata.getFileName(), imageMetadata.getFilePath(), ImageService.ImageSize.valueOf(size));
+        } catch (IOException e) {
+            log.error("Failed to read image",e);
+            return null;
+        }
     }
 
     @Timed
     @ResponseBody
-    @RequestMapping(value = "/images/getPath", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public String getImagePath(String size, String webName) throws IOException {
-        ImageMetadata imageMetadata = imageMetadataRepository.findOneByWebName(webName).get();
+    @RequestMapping(value = "/images/getPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String getImagePath(String size, String webName) {
+        Optional<ImageMetadata> optionalMetadata = imageMetadataRepository.findOneByWebName(webName);
+        if (!optionalMetadata.isPresent()) {
+            return "";
+        }
+        ImageMetadata imageMetadata = optionalMetadata.get();
         return ImageService.getFilePath(imageMetadata.getFilePath(), ImageService.ImageSize.valueOf(size), imageMetadata.getFileName());
     }
 }

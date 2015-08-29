@@ -1,7 +1,6 @@
 package at.musik.service;
 
 import liquibase.util.file.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ResourceLoaderAware;
@@ -15,7 +14,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 
 @Service
@@ -55,9 +53,9 @@ public class ImageService implements ResourceLoaderAware {
     private final Logger log = LoggerFactory.getLogger(ImageService.class);
 
 
-    public String saveImage(MultipartFile inputFile, String location) {
+    public String saveImage(MultipartFile inputFile, String fileName, String location) {
         String filenameWithExtension = inputFile.getOriginalFilename();
-        String baseName = FilenameUtils.getBaseName(filenameWithExtension);
+        String baseName = (fileName == null || fileName.isEmpty()) ? FilenameUtils.getBaseName(filenameWithExtension) : fileName;
         String fileType = FilenameUtils.getExtension(filenameWithExtension);
         int fileNumber;
         String filename;

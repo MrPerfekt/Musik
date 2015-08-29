@@ -110,6 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .and()
             .authorizeRequests()
+            .antMatchers("/resources/images/**").permitAll()
             .antMatchers("/api/images/upload").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.AUTHOR)
             .antMatchers("/api/images/download").permitAll()
             .antMatchers("/api/images/getPath").permitAll()
