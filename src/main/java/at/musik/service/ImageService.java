@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -42,7 +43,7 @@ public class ImageService implements ResourceLoaderAware {
         }
 
         public String getImageLocation() {
-            return imageLocation + "/" + this.name() + "/";
+            return imageLocation + this.name() + "/";
         }
 
         ImageSize(int maxLongSize) {
@@ -119,7 +120,7 @@ public class ImageService implements ResourceLoaderAware {
         img.createGraphics().drawImage(ImageIO.read(originalFile).getScaledInstance(newWidth, newHeigh, Image.SCALE_SMOOTH), 0, 0, null);
         resourceLoader.getResource(folderPath).getFile().mkdirs();
         ImageIO.write(img, imageFormat, resourceLoader.getResource(imagePathName).getFile());
-
+        img.flush();
         log.info("Image {} saved as: {}", imageSize.name(), imagePathName);
     }
 
