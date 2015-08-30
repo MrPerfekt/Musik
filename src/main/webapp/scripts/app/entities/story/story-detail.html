@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="musikApp.story.detail.title">Story</span> {{story.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="musikApp.story.title">Title</span>
+                </td>
+                <td>
+                    <input type="text" class="input-sm form-control" value="{{story.title}}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="musikApp.story.description">Description</span>
+                </td>
+                <td>
+                    <input type="text" class="input-sm form-control" value="{{story.description}}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="musikApp.story.text">Text</span>
+                </td>
+                <td>
+                    <input type="text" class="input-sm form-control" value="{{story.text}}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="musikApp.story.user">user</span>
+                </td>
+                <td>
+                    <input type="text" class="input-sm form-control" value="{{story.userId}}" readonly>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="story"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

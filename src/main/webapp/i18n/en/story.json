@@ -1,0 +1,25 @@
+{
+    "musikApp": {
+        "story" : {
+            "home": {
+                "title": "Storys",
+                "createLabel": "Create a new Story",
+                "createOrEditLabel": "Create or edit a Story"
+            },
+            "created": "A new Story is created with identifier {{ param }}",
+            "updated": "A Story is updated with identifier {{ param }}",
+            "deleted": "A Story is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Story {{ id }}?"
+            },
+            "detail": {
+                "title": "Story"
+            },
+            "title": "Title",
+            "description": "Description",
+            "text": "Text",
+            "user": "user",
+            "imageMetadata": "imageMetadata"
+        }
+    }
+}

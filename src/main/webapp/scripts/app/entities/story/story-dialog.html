@@ -1,0 +1,90 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myStoryLabel" translate="musikApp.story.home.createOrEditLabel">Create or edit a Story</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="story.id" readonly>
+        </div>
+
+        <div class="form-group">
+            <label translate="musikApp.story.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="story.title"
+                    required ng-minlength="2" ng-maxlength="100">
+
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="musikApp.story.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="story.description"
+                    required ng-minlength="2" ng-maxlength="500">
+
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="500">
+                    This field cannot be longer than 500 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="musikApp.story.text" for="field_text">Text</label>
+            <input type="text" class="form-control" name="text" id="field_text"
+                    ng-model="story.text"
+                    required ng-minlength="2">
+
+            <div ng-show="editForm.text.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.text.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.text.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="musikApp.story.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="story.user.id" ng-options="user.id as user.id for user in users">
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
