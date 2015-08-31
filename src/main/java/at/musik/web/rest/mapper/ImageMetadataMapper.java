@@ -12,9 +12,11 @@ import org.mapstruct.*;
 public interface ImageMetadataMapper {
 
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "story.id", target = "storyId")
     ImageMetadataDTO imageMetadataToImageMetadataDTO(ImageMetadata imageMetadata);
 
     @Mapping(source = "userId", target = "user")
+    @Mapping(source = "storyId", target = "story")
     ImageMetadata imageMetadataDTOToImageMetadata(ImageMetadataDTO imageMetadataDTO);
 
     default User userFromId(Long id) {
@@ -24,5 +26,14 @@ public interface ImageMetadataMapper {
         User user = new User();
         user.setId(id);
         return user;
+    }
+
+    default Story storyFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Story story = new Story();
+        story.setId(id);
+        return story;
     }
 }

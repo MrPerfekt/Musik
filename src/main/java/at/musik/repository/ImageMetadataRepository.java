@@ -1,8 +1,6 @@
 package at.musik.repository;
 
 import at.musik.domain.ImageMetadata;
-import at.musik.domain.User;
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -17,9 +15,4 @@ public interface ImageMetadataRepository extends JpaRepository<ImageMetadata,Lon
     List<ImageMetadata> findAllForCurrentUser();
 
     Optional<ImageMetadata> findOneByWebName(String webName);
-
-    List<ImageMetadata> findAllByFileName(String fileName);
-
-    List<ImageMetadata> findAllByFilePath(String filePath);
-
 }

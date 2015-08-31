@@ -45,7 +45,7 @@ public class ImagesResource {
             imageMetadata.setUser(user);
             imageMetadataRepository.save(imageMetadata);
         } else {
-            imageMetadataRepository.save(new ImageMetadata(webName, filename, location, user));
+            imageMetadataRepository.save(new ImageMetadata(webName, filename, location, user, null));
         }
     }
 

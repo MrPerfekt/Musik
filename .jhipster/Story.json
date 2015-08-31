@@ -12,6 +12,7 @@
             "relationshipName": "imageMetadata",
             "otherEntityName": "imageMetadata",
             "relationshipType": "one-to-many",
+            "otherEntityField": "id",
             "otherEntityRelationshipName": "story"
         }
     ],

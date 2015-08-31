@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('musikApp')
-    .controller('ImageMetadataDetailController', function ($scope, $rootScope, $stateParams, entity, ImageMetadata, User) {
+    .controller('ImageMetadataDetailController', function ($scope, $rootScope, $stateParams, entity, ImageMetadata, User, Story) {
         $scope.imageMetadata = entity;
         $scope.load = function (id) {
             ImageMetadata.get({id: id}, function(result) {

@@ -25,31 +25,31 @@ public class Story implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100)    
 
-
+    
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 
     @NotNull
-    @Size(min = 2, max = 500)
+    @Size(min = 2, max = 500)    
 
-
+    
     @Column(name = "description", length = 500, nullable = false)
     private String description;
 
     @NotNull
-    @Size(min = 2)
+    @Size(min = 2)    
 
-
+    
     @Column(name = "text", nullable = false)
     private String text;
 
     @ManyToOne
     private User user;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "story")
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ImageMetadata> imageMetadatas = new HashSet<>();
 

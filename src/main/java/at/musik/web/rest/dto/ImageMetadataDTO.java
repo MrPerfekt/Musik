@@ -24,6 +24,8 @@ public class ImageMetadataDTO implements Serializable {
 
     private Long userId;
 
+    private Long storyId;
+
     public Long getId() {
         return id;
     }
@@ -62,6 +64,14 @@ public class ImageMetadataDTO implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getStoryId() {
+        return storyId;
+    }
+
+    public void setStoryId(Long storyId) {
+        this.storyId = storyId;
     }
 
     @Override

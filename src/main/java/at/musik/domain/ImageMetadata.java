@@ -1,12 +1,13 @@
 package at.musik.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 
@@ -22,23 +23,39 @@ public class ImageMetadata implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
+
     @Column(name = "web_name")
     private String webName;
 
     @NotNull
+
+
     @Column(name = "file_name", nullable = false)
     private String fileName;
 
     @NotNull
+
+
     @Column(name = "file_path", nullable = false)
     private String filePath;
 
     @ManyToOne
     private User user;
 
-    @JsonIgnore
     @ManyToOne
     private Story story;
+
+    public ImageMetadata() {
+    }
+
+    public ImageMetadata(String webName, String fileName, String filePath, User user, Story story) {
+        this.webName = webName;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.user = user;
+        this.story = story;
+    }
 
     public Long getId() {
         return id;
@@ -80,14 +97,12 @@ public class ImageMetadata implements Serializable {
         this.user = user;
     }
 
-    public ImageMetadata() {
+    public Story getStory() {
+        return story;
     }
 
-    public ImageMetadata(String webName, String fileName, String filePath, User user) {
-        this.webName = webName;
-        this.fileName = fileName;
-        this.filePath = filePath;
-        this.user = user;
+    public void setStory(Story story) {
+        this.story = story;
     }
 
     @Override
@@ -101,7 +116,7 @@ public class ImageMetadata implements Serializable {
 
         ImageMetadata imageMetadata = (ImageMetadata) o;
 
-        if (!Objects.equals(id, imageMetadata.id)) return false;
+        if ( ! Objects.equals(id, imageMetadata.id)) return false;
 
         return true;
     }
@@ -114,10 +129,10 @@ public class ImageMetadata implements Serializable {
     @Override
     public String toString() {
         return "ImageMetadata{" +
-            "id=" + id +
-            ", webName='" + webName + "'" +
-            ", fileName='" + fileName + "'" +
-            ", filePath='" + filePath + "'" +
-            '}';
+                "id=" + id +
+                ", webName='" + webName + "'" +
+                ", fileName='" + fileName + "'" +
+                ", filePath='" + filePath + "'" +
+                '}';
     }
 }

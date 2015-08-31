@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('musikApp').controller('ImageMetadataDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'ImageMetadata', 'User',
-        function($scope, $stateParams, $modalInstance, entity, ImageMetadata, User) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'ImageMetadata', 'User', 'Story',
+        function($scope, $stateParams, $modalInstance, entity, ImageMetadata, User, Story) {
 
         $scope.imageMetadata = entity;
         $scope.users = User.query();
+        $scope.storys = Story.query();
         $scope.load = function(id) {
             ImageMetadata.get({id : id}, function(result) {
                 $scope.imageMetadata = result;
