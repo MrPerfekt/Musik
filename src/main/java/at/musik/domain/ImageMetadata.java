@@ -1,5 +1,6 @@
 package at.musik.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -34,6 +35,10 @@ public class ImageMetadata implements Serializable {
 
     @ManyToOne
     private User user;
+
+    @JsonIgnore
+    @ManyToOne
+    private Story story;
 
     public Long getId() {
         return id;

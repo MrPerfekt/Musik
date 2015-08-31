@@ -33,12 +33,18 @@
             </column>
             <column name="user_id" type="bigint"/>
         </createTable>
-        
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="STORY"
                                  constraintName="fk_story_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="JHI_USER"/>
+
+        <addForeignKeyConstraint baseColumnNames="story_id"
+                                 baseTableName="IMAGEMETADATA"
+                                 constraintName="fk_imagemetadata_story_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="STORY"/>
 
     </changeSet>
 </databaseChangeLog>
