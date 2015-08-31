@@ -3,8 +3,8 @@
 angular.module('musikApp')
     .directive('editableImage', function ($http) {
         return {
-            restrict: 'AE',
-            templateUrl: 'scripts/components/image/image.html',
+            restrict: 'E',
+            templateUrl: 'scripts/components/editableImage/editableImage.html',
 
             scope: {
                 name: "@",

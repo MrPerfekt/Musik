@@ -15,4 +15,10 @@ public interface ImageMetadataRepository extends JpaRepository<ImageMetadata,Lon
     List<ImageMetadata> findAllForCurrentUser();
 
     Optional<ImageMetadata> findOneByWebName(String webName);
+
+    @Query(value = "select imageMetadata from IMAGEMETADATA imageMetadata where imageMetadata.story_id = ?1", nativeQuery = true)
+    List<ImageMetadata> findAllByStory(Long storyId);
+
+    @Query(value = "select imageMetadata.web_name from IMAGEMETADATA imageMetadata where imageMetadata.story_id = ?1", nativeQuery = true)
+    List<String> findAllWebNamesByStory(Long storyId);
 }

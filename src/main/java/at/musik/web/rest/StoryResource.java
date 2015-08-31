@@ -41,6 +41,7 @@ public class StoryResource {
     @Inject
     private StoryMapper storyMapper;
 
+
     /**
      * POST  /storys -> Create a new story.
      */

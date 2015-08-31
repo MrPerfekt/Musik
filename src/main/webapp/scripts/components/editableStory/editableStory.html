@@ -1,0 +1,9 @@
+<div>
+    <h2>{{story.title}}</h2>
+    <h3>{{story.description}}</h3>
+    {{story.text}}
+    <div ng-repeat="imagePath in imagePaths">
+        <editable-image size="thumbnail" name="{{imagePath}}"></editable-image>
+        <!--<button>Delete</button>-->
+    </div>
+</div>

@@ -8,7 +8,9 @@ import at.musik.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -72,5 +75,13 @@ public class ImagesResource {
         }
         ImageMetadata imageMetadata = optionalMetadata.get();
         return ImageService.getFilePath(imageMetadata.getFilePath(), ImageService.ImageSize.valueOf(size), imageMetadata.getFileName());
+    }
+
+    @Timed
+    @ResponseBody
+    @RequestMapping(value = "/images/getPathsForStory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getImagePathsForStory(@RequestParam(required = true) Long storyId) {
+        List<String> webNames = imageMetadataRepository.findAllWebNamesByStory(storyId);
+        return new ResponseEntity<List<String>>(webNames, HttpStatus.OK);
     }
 }
