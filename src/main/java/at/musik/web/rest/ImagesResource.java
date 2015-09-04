@@ -17,9 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.inject.Inject;
 import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -35,8 +33,23 @@ public class ImagesResource {
     private UserService userService;
 
     @Timed
-    @RequestMapping(value = "/images/upload",
-        method = RequestMethod.POST) //The field file exceeds its maximum permitted size of 1048576 bytes.
+    @RequestMapping(value = "/images/uploadAndSearchWebName", method = RequestMethod.POST)
+    public void uploadImageAndSearchWebName(@RequestParam(required = true) String webNameBase, @RequestParam(defaultValue = "") String location, @RequestBody MultipartFile file) {
+        int i = 0;
+        String webName;
+        Optional<ImageMetadata> optionalMetadata;
+        do {
+            webName = webNameBase + "-" + i;
+            optionalMetadata = imageMetadataRepository.findOneByWebName(webName);
+            i++;
+        } while(optionalMetadata.isPresent());
+        String filename = imageService.saveImage(file, webName, location);
+        User user = userService.getUserWithAuthorities();
+        imageMetadataRepository.save(new ImageMetadata(webName, filename, location, user, null));
+    }
+
+    @Timed
+    @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
     public void uploadImage(@RequestParam(required = true) String webName, @RequestParam(defaultValue = "") String location, @RequestBody MultipartFile file) {
         String filename = imageService.saveImage(file, webName, location);
         User user = userService.getUserWithAuthorities();
@@ -80,8 +93,8 @@ public class ImagesResource {
     @Timed
     @ResponseBody
     @RequestMapping(value = "/images/getPathsForStory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getImagePathsForStory(@RequestParam(required = true) Long storyId) {
-        List<String> webNames = imageMetadataRepository.findAllWebNamesByStory(storyId);
-        return new ResponseEntity<List<String>>(webNames, HttpStatus.OK);
+    public ResponseEntity<List<Set<String>>> getImagePathsForStory(@RequestParam(required = true) Long storyId) {
+        List<Set<String>> webNames = imageMetadataRepository.findAllWebNamesByStory(storyId);
+        return new ResponseEntity<>(webNames, HttpStatus.OK);
     }
 }

@@ -115,6 +115,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/images/download").permitAll()
             .antMatchers("/api/images/getPath").permitAll()
             .antMatchers("/api/images/getImagePathsForStory").permitAll()
+            .antMatchers("/api/images/uploadAndSearchWebName").permitAll()
             .antMatchers("/api/images/**").permitAll()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()

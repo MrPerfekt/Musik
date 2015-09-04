@@ -55,6 +55,9 @@ public class ImageService implements ResourceLoaderAware {
 
 
     public String saveImage(MultipartFile inputFile, String fileName, String location) {
+        if (inputFile == null) {
+            return "";
+        }
         String filenameWithExtension = inputFile.getOriginalFilename();
         String baseName = (fileName == null || fileName.isEmpty()) ? FilenameUtils.getBaseName(filenameWithExtension) : fileName;
         String fileType = FilenameUtils.getExtension(filenameWithExtension);

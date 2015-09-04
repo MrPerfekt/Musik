@@ -72,6 +72,10 @@
         },
         "field": {
             "id" : "ID"
+        },
+        "editableStory": {
+            "add": "Hinzufügen",
+            "delete": "Löschen"
         }
     },
     "entity": {
